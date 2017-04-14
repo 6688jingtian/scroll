@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+	<title>无缝滚动</title>
+	<style>
+		* {margin:0;padding:0;}
+		#div1{width:450px;height:108px;margin:100px auto;position: relative;
+		background: #ccc;overflow: hidden;}
+		#div1 ul{position: absolute;left: 0;top: 0;}
+		#div1 ul li{float:left;width:150px;height:108px;list-style: none;}
+	</style>
+	
+</head>
+<body>
+	<center>
+		<a href="javascript:;">向左走</a>
+		<a href="javascript:;">向右走</a>
+		<a href="javascript:;">加速</a>
+	</center>
+
+<div id="div1">
+	<ul>
+		<li><img src="img/wo/1.jpg"></li>
+		<li><img src="img/wo/2.jpg"></li>
+		<li><img src="img/wo/3.jpg"></li>
+	</ul>
+</div>
+<script>
+			var oDiv1=document.getElementById('div1');
+			var oUl=oDiv1.getElementsByTagName('ul')[0];
+			var aLi=oUl.getElementsByTagName('li');
+			var speed=2;
+			
+			oUl.innerHTML+=oUl.innerHTML;
+			oUl.style.width=aLi[0].offsetWidth*aLi.length+'px';
+			function show()
+			{
+				if (-oUl.offsetLeft>oUl.offsetWidth/2) 
+				{
+					oUl.style.left='0';
+				}
+				if (oUl.offsetLeft>0) 
+				{
+					//alert(oUl.offsetWidth);
+					oUl.style.left=-oUl.offsetWidth/2+'px';
+				}
+				oUl.style.left=oUl.offsetLeft+speed+'px';
+			}
+			var timer=setInterval(show,30);
+
+			oDiv1.onmouseover=function (){
+				clearInterval(timer);
+			}
+			oDiv1.onmouseout=function (){
+				timer=setInterval(show,30);
+			}
+
+			document.getElementsByTagName('a')[0].onclick=function (){
+				speed=-2;
+			}
+			document.getElementsByTagName('a')[1].onclick=function (){
+				speed=2;
+			}
+			document.getElementsByTagName('a')[2].onclick=function (){
+				if (speed<0) {speed=speed-2;}
+				else{speed+=2;}
+			}
+	</script>
+</body>
+</html>
